@@ -1,0 +1,170 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Player/Player.png" type="Texture" id=1]
+[ext_resource path="res://UI/TitleScreen.gd" type="Script" id=2]
+[ext_resource path="res://UI/Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://World/GrassBackground.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxFlat" id=55]
+bg_color = Color( 0.0823529, 0.396078, 0.752941, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.509804, 0.694118, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=56]
+bg_color = Color( 0.101961, 0.137255, 0.494118, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0823529, 0.396078, 0.752941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=57]
+bg_color = Color( 0.188235, 0.247059, 0.623529, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0823529, 0.396078, 0.752941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=54]
+bg_color = Color( 0.188235, 0.247059, 0.623529, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0823529, 0.396078, 0.752941, 1 )
+
+[sub_resource type="InputEventAction" id=52]
+action = "ui_accept"
+
+[sub_resource type="ShortCut" id=53]
+shortcut = SubResource( 52 )
+
+[sub_resource type="Animation" id=58]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=59]
+resource_name = "Walk"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[node name="TitleScreen" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Sky" type="ColorRect" parent="."]
+margin_right = 320.0
+margin_bottom = 184.0
+color = Color( 0.101961, 0.137255, 0.494118, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grass" type="Sprite" parent="."]
+position = Vector2( 304, 384 )
+scale = Vector2( 0.7, 0.713889 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1120, 720 )
+
+[node name="GrassBorder" type="ColorRect" parent="."]
+margin_top = 127.0
+margin_right = 320.0
+margin_bottom = 128.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = -34.0
+margin_right = -2.0
+margin_bottom = -24.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 3 )
+text = "TutorialQuest"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = 54.0
+margin_right = 32.0
+margin_bottom = 70.0
+custom_colors/font_color_disabled = Color( 0.509804, 0.694118, 1, 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = SubResource( 55 )
+custom_styles/pressed = SubResource( 56 )
+custom_styles/focus = SubResource( 55 )
+custom_styles/disabled = SubResource( 57 )
+custom_styles/normal = SubResource( 54 )
+shortcut_in_tooltip = false
+shortcut = SubResource( 53 )
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Character" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Character"]
+position = Vector2( 117, 88 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 12, 0 )
+hframes = 60
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Character"]
+anims/RESET = SubResource( 58 )
+anims/Walk = SubResource( 59 )
+
+[node name="Version" type="Label" parent="."]
+margin_left = 272.0
+margin_top = 168.0
+margin_right = 312.0
+margin_bottom = 182.0
+custom_fonts/font = ExtResource( 3 )
+text = "v1.0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
